@@ -5,7 +5,6 @@ import com.etraveli.api.helper.APIHelperUtil;
 import com.etraveli.dto.APIResponse;
 import com.etraveli.dto.MovieRentalDTO;
 import com.etraveli.dto.RentalInfo;
-import com.etraveli.dto.RentalStatement;
 import com.etraveli.dto.request.SaveRental;
 import com.etraveli.service.RentalService;
 import io.swagger.v3.oas.annotations.Operation;

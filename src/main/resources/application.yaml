@@ -19,6 +19,9 @@ spring:
 
 
 rental:
+  frequent:
+    days: 2
+
   regular:
     amount: 2
     days: 2
@@ -35,5 +38,6 @@ rental:
 apis:
   logging:
     enabled: true
+
 server:
   port: 8090

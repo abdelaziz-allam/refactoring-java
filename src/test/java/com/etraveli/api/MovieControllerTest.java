@@ -2,7 +2,9 @@ package com.etraveli.api;
 
 import com.etraveli.dto.APIResponse;
 import com.etraveli.dto.MovieDTO;
+import com.etraveli.dto.MovieDTOBuilder;
 import com.etraveli.dto.request.SaveMovie;
+import com.etraveli.dto.request.SaveMovieBuilder;
 import com.etraveli.enums.MovieType;
 import com.etraveli.enums.ResponseStatus;
 import com.etraveli.service.MovieService;
@@ -28,12 +30,12 @@ class MovieControllerTest {
 
   @Test
   void save() {
-    SaveMovie request = SaveMovie.builder()
+    SaveMovie request = SaveMovieBuilder.builder()
             .title("You've Got Mail")
             .code("F001")
             .type(MovieType.REGULAR)
             .build();
-    MovieDTO response = MovieDTO.builder()
+    MovieDTO response = MovieDTOBuilder.builder()
             .id(UUID.randomUUID())
             .title("You've Got Mail")
             .code("F001")
@@ -51,23 +53,23 @@ class MovieControllerTest {
   @Test
   void fetchAll() {
     List<MovieDTO> response = List.of(
-            MovieDTO.builder()
+            MovieDTOBuilder.builder()
                     .id(UUID.randomUUID())
                     .title("You've Got Mail")
                     .code("F001")
                     .type(MovieType.REGULAR)
                     .build(),
-            MovieDTO.builder().id(UUID.randomUUID())
+            MovieDTOBuilder.builder().id(UUID.randomUUID())
                     .title("Matrix")
                     .code("F002")
                     .type(MovieType.REGULAR)
                     .build(),
-            MovieDTO.builder().id(UUID.randomUUID())
+            MovieDTOBuilder.builder().id(UUID.randomUUID())
                     .title("Cars")
                     .code("F003")
                     .type(MovieType.CHILDREN)
                     .build(),
-            MovieDTO.builder().id(UUID.randomUUID())
+            MovieDTOBuilder.builder().id(UUID.randomUUID())
                     .title("Fast & Furious X")
                     .code("F004")
                     .type(MovieType.NEW)

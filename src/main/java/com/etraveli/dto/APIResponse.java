@@ -1,9 +1,9 @@
 package com.etraveli.dto;
 
 import com.etraveli.enums.ResponseStatus;
-import lombok.Builder;
+import io.soabase.recordbuilder.core.RecordBuilder;
 
-@Builder
+@RecordBuilder
 public record APIResponse<T>(ResponseStatus status,
                              T result,
                              String code,

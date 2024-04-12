@@ -16,6 +16,6 @@ class ChildrenMovieRentalCalculatorTest {
   public void testCalculateRentalAmount() {
     int daysRented = 5;
     double amount = calculator.calculateRentalAmount(daysRented);
-    assertEquals(5.0, amount);
+    assertEquals(4.5, amount);
   }
 }

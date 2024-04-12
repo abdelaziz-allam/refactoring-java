@@ -65,6 +65,9 @@ $ java -jar target/movie-rental-0.0.1-SNAPSHOT.jar
 - Open browser click [swagger](http://localhost:8090/swagger-ui/)
 - How swagger should look like ![swagger.png](images%2Fswagger.png)
 
+# Code Coverage 
+
+![test-coverage.png](images%2Ftest-coverage.png)
 
 ## Enhancement Needed to be done
-- Cover more test cases to cover all scenarios
+- Handle Different Exceptions and add code coverage over them

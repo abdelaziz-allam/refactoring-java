@@ -14,6 +14,7 @@ import com.etraveli.service.rental.RentalFactory;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import java.util.UUID;
 import static com.etraveli.constant.AppConstants.CUSTOMER_NOT_FOUND;
 import static com.etraveli.constant.AppConstants.MOVIE_NOT_FOUND;
 
-@AllArgsConstructor
 @Service
 public class RentalService {
   private final CustomerRepository customerRepository;
@@ -31,7 +31,17 @@ public class RentalService {
   private final MovieRentalRepository movieRentalRepository;
   private final RentalFactory rentalFactory;
 
-  @Transactional
+  @Value("${rental.frequent.days}")
+  private int days;
+
+    public RentalService(CustomerRepository customerRepository, MovieRepository movieRepository, MovieRentalRepository movieRentalRepository, RentalFactory rentalFactory) {
+        this.customerRepository = customerRepository;
+        this.movieRepository = movieRepository;
+        this.movieRentalRepository = movieRentalRepository;
+        this.rentalFactory = rentalFactory;
+    }
+
+    @Transactional
   @PostConstruct
   public void init() {
     Movie movie1 = new Movie(UUID.randomUUID(), "F001", "Harry potter", MovieType.CHILDREN);
@@ -49,7 +59,7 @@ public class RentalService {
             .orElseThrow(() -> new IllegalArgumentException(MOVIE_NOT_FOUND));
     MovieRental rental = new MovieRental(UUID.randomUUID(),customer,movie, request.days());
     movieRentalRepository.save(rental);
-    return RentalInfo.builder()
+    return RentalInfoBuilder.builder()
             .customerId(customer.getId())
             .customerName(customer.getName())
             .movieName(movie.getTitle())
@@ -63,9 +73,9 @@ public class RentalService {
     List<MovieRentalDTO> rentals = new ArrayList<>();
     List<MovieRental> entities = movieRentalRepository.findByCustomerId(customerId);
     entities.forEach(
-            rental -> rentals.add(MovieRentalDTO.builder()
-                    .movie(MovieDTO.builder().title(rental.getMovie().getTitle()).build())
-                    .customer(CustomerDTO.builder().name(rental.getCustomer().getName()).build())
+            rental -> rentals.add(MovieRentalDTOBuilder.builder()
+                    .movie(MovieDTOBuilder.builder().title(rental.getMovie().getTitle()).build())
+                    .customer(CustomerDTOBuilder.builder().name(rental.getCustomer().getName()).build())
                     .days(rental.getDays())
                     .build()));
     return rentals;
@@ -82,7 +92,7 @@ public class RentalService {
 
       // Increment frequent enter points
       frequentEnterPoints++;
-      if (rental.getMovie().getType() == MovieType.NEW && rental.getDays() > 2) {
+      if (rental.getMovie().getType() == MovieType.NEW && rental.getDays() > days) {
         frequentEnterPoints++;
       }
 
@@ -94,7 +104,7 @@ public class RentalService {
   }
 
   private String generateStatementString(String customerName, List<RentalStatement> statements, double totalAmount, int frequentEnterPoints) {
-    StringBuilder result = new StringBuilder("Rental Record for " + customerName + "\n");
+    StringBuilder result = new StringBuilder(STR."Rental Record for \{customerName}\n");
 
     for (RentalStatement statement : statements) {
       result.append("\t").append(statement.movieTitle()).append("\t").append(statement.totalAmount()).append("\n");
@@ -102,9 +112,6 @@ public class RentalService {
 
     result.append("Amount owed is ").append(totalAmount).append("\n");
     result.append("You earned ").append(frequentEnterPoints).append(" frequent points\n");
-
-    String expected = "Rental Record for C. U. Stomer\\n\\tHarry potter\\t4.5\\n\\tThe Avengers\\t8.0\\nAmount owed is 8.0\\nYou earned 2 frequent points\\n";
-    String expected1 = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
 
     return result.toString();
 

@@ -1,9 +1,9 @@
 package com.etraveli.dto.request;
 
-import lombok.Builder;
+import io.soabase.recordbuilder.core.RecordBuilder;
 
 import java.util.UUID;
 
-@Builder
+@RecordBuilder
 public record SaveRental(UUID customerId, UUID movieId, int days) {
 }

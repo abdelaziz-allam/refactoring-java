@@ -1,6 +1,7 @@
 package com.etraveli.service;
 
 import com.etraveli.dto.MovieDTO;
+import com.etraveli.dto.MovieDTOBuilder;
 import com.etraveli.dto.request.SaveMovie;
 import com.etraveli.entity.Movie;
 import com.etraveli.repo.MovieRepository;
@@ -17,7 +18,7 @@ public class MovieService {
 
   public MovieDTO save(SaveMovie request) {
     Movie entity = movieRepository.save(new Movie(request.code(), request.title(), request.type()));
-    return MovieDTO.builder()
+    return MovieDTOBuilder.builder()
             .id(entity.getId())
             .title(entity.getTitle())
             .code(entity.getCode())
@@ -29,7 +30,7 @@ public class MovieService {
     List<MovieDTO> result = new ArrayList<>();
     List<Movie> entities = movieRepository.findAll();
     entities.forEach(entity ->
-            result.add(MovieDTO.builder()
+            result.add(MovieDTOBuilder.builder()
                     .id(entity.getId())
                     .title(entity.getTitle())
                     .code(entity.getCode())

@@ -1,10 +1,8 @@
 package com.etraveli.api;
 
-import com.etraveli.dto.APIResponse;
-import com.etraveli.dto.CustomerDTO;
-import com.etraveli.dto.MovieDTO;
-import com.etraveli.dto.MovieRentalDTO;
+import com.etraveli.dto.*;
 import com.etraveli.dto.request.SaveCustomer;
+import com.etraveli.dto.request.SaveCustomerBuilder;
 import com.etraveli.enums.MovieType;
 import com.etraveli.enums.ResponseStatus;
 import com.etraveli.service.CustomerService;
@@ -30,10 +28,10 @@ class CustomerControllerTest {
 
   @Test
   void save() {
-    SaveCustomer request = SaveCustomer.builder()
+    SaveCustomer request = SaveCustomerBuilder.builder()
             .customerName("Abdelaziz Allam")
             .build();
-    CustomerDTO response = CustomerDTO.builder()
+    CustomerDTO response = CustomerDTOBuilder.builder()
             .id(UUID.randomUUID())
             .name("Abdelaziz Allam")
             .build();
@@ -50,11 +48,11 @@ class CustomerControllerTest {
   @Test
   void fetchAll() {
     List<CustomerDTO> response = List.of(
-            CustomerDTO.builder()
+            CustomerDTOBuilder.builder()
                     .id(UUID.randomUUID())
                     .name("Abdelaziz Allam")
-                    .rentals(List.of(MovieRentalDTO.builder()
-                                    .movie(MovieDTO.builder()
+                    .rentals(List.of(MovieRentalDTOBuilder.builder()
+                                    .movie(MovieDTOBuilder.builder()
                                                     .id(UUID.randomUUID())
                                                     .title("You've Got Mail")
                                                     .code("F001")

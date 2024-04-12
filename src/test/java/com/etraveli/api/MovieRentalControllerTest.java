@@ -2,6 +2,7 @@ package com.etraveli.api;
 
 import com.etraveli.dto.*;
 import com.etraveli.dto.request.SaveRental;
+import com.etraveli.dto.request.SaveRentalBuilder;
 import com.etraveli.enums.MovieType;
 import com.etraveli.enums.ResponseStatus;
 import com.etraveli.service.RentalService;
@@ -15,6 +16,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.etraveli.enums.ResponseStatus.SUCCESS;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -36,20 +40,20 @@ class MovieRentalControllerTest {
     ResponseEntity<APIResponse<String>> actualResponse = movieRentalController.statement(customerId);
 
     verify(rentalService, times(1)).statement(customerId);
-    assertEquals(ResponseStatus.SUCCESS, Objects.requireNonNull(actualResponse.getBody()).status());
+    assertEquals(SUCCESS, Objects.requireNonNull(actualResponse.getBody()).status());
     assertEquals(Objects.requireNonNull(actualResponse.getBody()).result(),statement);
   }
 
   @Test
   void testGetCustomerRental() {
     UUID customerId = UUID.randomUUID();
-    List<MovieRentalDTO> response = List.of( MovieRentalDTO.builder()
+    List<MovieRentalDTO> response = List.of( MovieRentalDTOBuilder.builder()
                     .days(5)
-                    .customer(CustomerDTO.builder()
+                    .customer(CustomerDTOBuilder.builder()
                             .id(UUID.randomUUID())
                             .name("Abdelaziz Allam")
                             .build())
-                    .movie(MovieDTO.builder()
+                    .movie(MovieDTOBuilder.builder()
                             .id(UUID.randomUUID())
                             .title("You've Got Mail")
                             .code("F001")
@@ -62,8 +66,8 @@ class MovieRentalControllerTest {
     ResponseEntity<APIResponse<List<MovieRentalDTO>>> actualResponse = movieRentalController.getCustomerRental(customerId);
 
     verify(rentalService, times(1)).getCustomerRental(customerId);
-    assertEquals(ResponseStatus.SUCCESS, Objects.requireNonNull(actualResponse.getBody()).status());
-    assertEquals(response.size(), Objects.requireNonNull(actualResponse.getBody()).result().size());
+    assertEquals(SUCCESS, Objects.requireNonNull(actualResponse.getBody()).status());
+    assertThat(Objects.requireNonNull(actualResponse.getBody()).result(), hasSize(response.size()));
 
   }
 
@@ -71,12 +75,12 @@ class MovieRentalControllerTest {
   void testSaveRental() {
     UUID customerId = UUID.randomUUID();
     UUID movieId = UUID.randomUUID();
-    SaveRental request = SaveRental.builder()
+    SaveRental request = SaveRentalBuilder.builder()
             .customerId(customerId)
             .movieId(movieId)
             .days(5)
             .build();
-    RentalInfo response = RentalInfo.builder()
+    RentalInfo response = RentalInfoBuilder.builder()
             .customerId(customerId)
             .customerName("Abdelaziz Allam")
             .movieName("You've Got Mail")
@@ -89,7 +93,7 @@ class MovieRentalControllerTest {
     ResponseEntity<APIResponse<RentalInfo>> actualResponse = movieRentalController.saveRental(request);
 
     verify(rentalService, times(1)).saveCustomerRental(request);
-    assertEquals(ResponseStatus.SUCCESS, Objects.requireNonNull(actualResponse.getBody()).status());
+    assertEquals(SUCCESS, Objects.requireNonNull(actualResponse.getBody()).status());
     assertEquals(response, Objects.requireNonNull(actualResponse.getBody()).result());
   }
 
