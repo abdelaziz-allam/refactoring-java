@@ -13,3 +13,6 @@
 /src/main/resources/banner.txt
 /movie-rental.iml
 /refactoring-java.iml
+/target/classes/application.yaml
+/target/classes/banner.txt
+/target/classes/logback-spring.xml

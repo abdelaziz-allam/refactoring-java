@@ -54,13 +54,13 @@
 
 #### Build Project
 
-- Make sure that you are on the retail-product-catalog dictory then start executing below commands
+- Make sure that you are on the refactoring-java directory then start executing below commands
 ```sh
 $ mvn clean install
 $ java -jar target/movie-rental-0.0.1-SNAPSHOT.jar
 ```
 
-# How to test champion-service APIS
+# How to test movie-rental-service APIS
 - After successfully start
 - Open browser click [swagger](http://localhost:8090/swagger-ui/)
 - How swagger should look like ![swagger.png](images%2Fswagger.png)
