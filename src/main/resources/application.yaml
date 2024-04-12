@@ -1,0 +1,39 @@
+
+spring:
+  application:
+    name: movie rental
+
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
+rental:
+  regular:
+    amount: 2
+    days: 2
+    factor: 1.5
+
+  new:
+    amount: 1.5
+
+  children:
+    amount: 1.5
+    days: 3
+    factor: 1.5
+
+apis:
+  logging:
+    enabled: true
+server:
+  port: 8090
