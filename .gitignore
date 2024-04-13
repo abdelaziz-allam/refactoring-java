@@ -41,3 +41,4 @@
 /target/surefire-reports/TEST-com.etraveli.service.rental.RentalFactoryTest.xml
 /target/surefire-reports/TEST-com.etraveli.service.RentalServiceTest.xml
 /target/jacoco.exec
+/.idea/inspectionProfiles/Project_Default.xml

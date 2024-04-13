@@ -25,28 +25,22 @@ public class RentalFactoryTest {
 
   @Test
   public void testGetCalculatorForRegularMovie() {
-    // When
     MovieRentalCalculator calculator = rentalFactory.getCalculator(MovieType.REGULAR);
 
-    // Then
     assertEquals(regularCalculator, calculator);
   }
 
   @Test
   public void testGetCalculatorForNewReleaseMovie() {
-    // When
     MovieRentalCalculator calculator = rentalFactory.getCalculator(MovieType.NEW);
 
-    // Then
     assertEquals(newReleaseCalculator, calculator);
   }
 
   @Test
   public void testGetCalculatorForChildrenMovie() {
-    // When
     MovieRentalCalculator calculator = rentalFactory.getCalculator(MovieType.CHILDREN);
 
-    // Then
     assertEquals(childrensCalculator, calculator);
   }
 }

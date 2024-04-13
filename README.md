@@ -40,14 +40,13 @@
 * **src/test/java** holding all Integration and unit test classes
 * **src/test/resources** resource files that will be used by testing classes
 
+![code-structure.png](images%2Fcode-structure.png)
 
-# How to run retail-product-catalog as Docker
 
-* execute the blow command
-
-```sh
-    docker run -p 8090:8090  abdelazizallam/etravli-movie-rental-backend
-```
+# How to run code at your local 
+- clone code base from github
+- get the source code at your preferred IDES preference Intellj
+- make sure your application configuration pointing to Application File 
 
 
 # How to run etraveli movie rental Standalone
@@ -71,3 +70,4 @@ $ java -jar target/movie-rental-0.0.1-SNAPSHOT.jar
 
 ## Enhancement Needed to be done
 - Handle Different Exceptions and add code coverage over them
+- Build Docker Image for the backend service 
